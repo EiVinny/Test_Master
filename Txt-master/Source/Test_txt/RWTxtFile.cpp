@@ -47,7 +47,7 @@ void URWTxtFile::LerTexto(FString FileNameE,  FVector&VetorLegal)
 	numero1 = 0.0;
 	numero2 = 0.0;
 	numero3 = 0.0;
-	arquivo = "D:\\Vinicius Oliveira\\Txt-master\\Txt-master" + FileNameE + ".txt";
+	arquivo = "C:\\Users\\vinny\\Documents\\GitHub\\Test_Master\\Txt-master" + FileNameE + ".txt";
 	//Converte FString para string
 	string arquivo2 = string(TCHAR_TO_UTF8(*arquivo));
 	UE_LOG(LogTemp, Warning, TEXT("JSON %s"), *FString(arquivo2.c_str()));
@@ -133,7 +133,7 @@ FVector URWTxtFile::EscreverTexto(FString FileNameD, FVector Lugar)
 	numero1 = Lugar.X;
 	numero2 = Lugar.Y;
 	numero3 = Lugar.Z;
-	arquivo = "D:\\Vinicius Oliveira\\Txt-master\\Txt-master" + FileNameD + ".txt";
+	arquivo = "C:\\Users\\vinny\\Documents\\GitHub\\Test_Master\\Txt-master" + FileNameD + ".txt";
 	string arquivo2 = string(TCHAR_TO_UTF8(*arquivo));
 	UE_LOG(LogTemp, Warning, TEXT("JSON %s"), *FString(arquivo2.c_str()));
 	ofstream output;
