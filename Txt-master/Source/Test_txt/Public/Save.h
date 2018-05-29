@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "iostream"
-#include "windows.system.h"
-#include "ActorComponent.generated.h"
+//#include "windows.system.h"
+//#include "ActorComponent.generated.h"
 
 using namespace std;
 
@@ -13,10 +13,9 @@ using namespace std;
  * 
  */
 class TEST_TXT_API Save{
-	private:
-		BinaryParam bf = new BinaryParam();
+		//BinaryParam bf = new BinaryParam();
 	public:
 		Save();
-		static void SaveInfo (AActor dados,string path)
+		//static void SaveInfo(AActor dados, string path);
 		~Save();
 };
