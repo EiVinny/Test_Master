@@ -31,7 +31,7 @@ class TEST_TXT_API URWTxtFile : public UBlueprintFunctionLibrary
 	*/
 
 		UFUNCTION(BlueprintPure, Category = "Custom", meta = (Keywords = "LerTexto"))
-			static void LerTexto(FString FileNameE, FVector&VetorLegal);
+			static void LerTexto(FString FileNameE, FVector&VetorLegalR, FVector&VetorLegalT);
 		
 		UFUNCTION(BlueprintPure, Category = "Custom", meta = (Keywords = "EscreverTexto"))
 			static FVector EscreverTexto(FString FileNameD, FVector Lugar);
