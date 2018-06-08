@@ -6,14 +6,22 @@
 #include "iostream"
 #include "list"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Engine/EngineTypes.h"
+#include "Components/SceneComponent.h"
+#include "GameFramework/Actor.h"
 #include "RWTxtFile.generated.h"
 
+
 using namespace std;
+
+
 
 UCLASS()
 class TEST_TXT_API URWTxtFile : public UBlueprintFunctionLibrary
 {
 	private:
+		//string nome = "nome";
+		//list<float> *coo = new list <float>();
 
 	GENERATED_BODY() public:
 
@@ -35,5 +43,14 @@ class TEST_TXT_API URWTxtFile : public UBlueprintFunctionLibrary
 		
 		UFUNCTION(BlueprintPure, Category = "Custom", meta = (Keywords = "EscreverTexto"))
 			static FVector EscreverTexto(FString FileNameD, FVector Lugar);
+
+		UFUNCTION(BlueprintPure, Category = "Custom", meta = (Keywords = "LerCoo"))
+			static void LerCoo(FString FileNameF,int Num, FVector&VetorRot, FVector&VectorTran);
+
+		UFUNCTION(BlueprintPure, Category = "Custom", meta = (Keywords = "Numero De Coordenadas"))
+			static void NumCoo(FString FileNameG, bool&Carregado, int&num);
+
+		UFUNCTION(BlueprintCallable, Category = "Utilities|Transformation", meta = (DisplayName = "SetTrajetoria", ScriptName = "SetTrajetoria"))
+			static void SetTrajetoria(AActor *SelectActor, FString NomeDoArquivo);
 		
 };

@@ -28,6 +28,86 @@ bool URWTxtFile::LoadArray(FString& FilenameD,TArray<uint8> ArrayB)
 }
 */
 
+void URWTxtFile::SetTrajetoria(AActor *SelectActor, FString NomeDoArquivo) {
+	float numero = 0.0;
+	float numero1 = 0.0;
+	float numero2 = 0.0;
+	float numero3 = 0.0;
+	bool bSweep = false;
+	bool Check = false;
+	FRotator Rot = FRotator(0.0f, 0.0f, 0.0f);
+	FVector Trans = FVector(0.0f, 0.0f, 0.0f);
+	FVector Scale = FVector(1.0f, 1.0f, 1.0f);
+	ETeleportType Teleport = ETeleportType::None;
+	FTransform Traj = FTransform( Rot, Trans, Scale);
+	FHitResult* OutSweepHit = nullptr;
+	FString arquivo = "D:\\Vinicius Oliveira\\Git\\Test_Master\\Txt-master\\" + NomeDoArquivo + ".txt";
+	string arquivo2 = string(TCHAR_TO_UTF8(*arquivo));
+	UE_LOG(LogTemp, Warning, TEXT("JSON %s"), *FString(arquivo2.c_str()));
+	ifstream input;
+	Check = SelectActor -> SetActorTransform(Traj, bSweep, OutSweepHit, Teleport);
+	
+}
+
+void URWTxtFile::NumCoo(FString FileNameG, bool&Carregado, int&num) {
+	float numero;
+	int num2 = 0;
+	FString arquivo = "D:\\Vinicius Oliveira\\Git\\Test_Master\\Txt-master\\" + FileNameG + ".txt";
+	string arquivo2 = string(TCHAR_TO_UTF8(*arquivo));
+	UE_LOG(LogTemp, Warning, TEXT("JSON %s"), *FString(arquivo2.c_str()));
+	ifstream input;
+	input.open(arquivo2);
+	while (input.good()) {
+		for (int i = 0; i < 8; i++)
+			input >> numero;
+		if(input.good())
+			num2 = num2 + 1;
+	}
+	input.close();
+	num = num2;
+	Carregado = true;
+}
+
+void URWTxtFile::LerCoo(FString FileNameF,int Num, FVector&VetorRot, FVector&VetorTran) {
+	float numero;
+	float numero1;
+	float numero2;
+	float numero3;
+	numero = 0.0;
+	numero1 = 0.0;
+	numero2 = 0.0;
+	numero3 = 0.0;
+	FVector VetorR = FVector(0.0f, 0.0f, 0.0f);
+	FVector VetorT = FVector(0.0f, 0.0f, 0.0f);
+	FString arquivo = "D:\\Vinicius Oliveira\\Git\\Test_Master\\Txt-master\\" + FileNameF + ".txt";
+	string arquivo2 = string(TCHAR_TO_UTF8(*arquivo));
+	UE_LOG(LogTemp, Warning, TEXT("JSON %s"), *FString(arquivo2.c_str()));
+	ifstream input;
+	input.open(arquivo2);
+	for (int i = 1; i < Num; i++) {
+		for (int j = 0; j < 8; j++)
+			input >> numero;
+	}
+	input >> numero;
+	input >> numero;
+	//Coordenada desejada  Rot
+	input >> numero1;
+	input >> numero2;
+	input >> numero3;
+	VetorR.X = numero1;
+	VetorR.Y = numero2;
+	VetorR.Z = numero3;
+	VetorRot = VetorR;
+	//Coordenada desejada Tran
+	input >> numero1;
+	input >> numero2;
+	input >> numero3;
+	VetorT.X = numero1;
+	VetorT.Y = numero2;
+	VetorT.Z = numero3;
+	VetorTran = VetorT;
+}
+
 void URWTxtFile::LerTexto(FString FileNameE,  FVector&VetorLegalR, FVector&VetorLegalT)
 {
 	//Funciona
