@@ -27,8 +27,47 @@ bool URWTxtFile::LoadArray(FString& FilenameD,TArray<uint8> ArrayB)
 	return FFileHelper::LoadFileToArray(ArrayB, *(FPaths::GameDir() + FilenameD));
 }
 */
+FVector CarregarLista(FString NomeArquivo, list<float>*Lista, bool&Carregado) {
+	float numero;
+	float numero1;
+	float numero2;
+	float numero3;
+	FVector Vetor = FVector(0.0f, 0.0f, 0.0f);
+	FString arquivo = "D:\\Vinicius Oliveira\\Git\\Test_Master\\Txt-master\\" + NomeArquivo + ".txt";
+	string arquivo2 = string(TCHAR_TO_UTF8(*arquivo));
+	UE_LOG(LogTemp, Warning, TEXT("JSON %s"), *FString(arquivo2.c_str()));
+	if(Carregado == false){
+		ifstream input;
+		input.open(arquivo2);
+		while (input.good()) {
+			input >> numero;
+			input >> numero;
+			for(int i = 0; i < 6;i++) {
+				input >> numero;
+				if (input.good()) {
+					Lista->push_back(numero);
+				}
+			}
+		}
+		input.close();
+		Carregado = true;
+	}
+	numero1 = Lista->front();
+	Lista->pop_front();
+	numero2 = Lista->front();
+	Lista->pop_front();
+	numero3 = Lista->front();
+	Lista->pop_front();
+	Vetor.X = numero1;
+	Vetor.Y = numero2;
+	Vetor.Z = numero3;
+	return Vetor;
+}
 
-void URWTxtFile::SetTrajetoria(AActor *SelectActor, FString NomeDoArquivo) {
+void URWTxtFile::Carregar(FString NomeArquivo, bool&Carregado, FVector&Vet){
+}
+
+void URWTxtFile::SetTrajetoria(AActor *SelectActor, FString NomeDoArquivo,int Num) {
 	float numero = 0.0;
 	float numero1 = 0.0;
 	float numero2 = 0.0;
@@ -36,16 +75,82 @@ void URWTxtFile::SetTrajetoria(AActor *SelectActor, FString NomeDoArquivo) {
 	bool bSweep = false;
 	bool Check = false;
 	FRotator Rot = FRotator(0.0f, 0.0f, 0.0f);
-	FVector Trans = FVector(0.0f, 0.0f, 0.0f);
+	FVector Trans = FVector(100.0f, 100.0f, 100.0f);
 	FVector Scale = FVector(1.0f, 1.0f, 1.0f);
 	ETeleportType Teleport = ETeleportType::None;
 	FTransform Traj = FTransform( Rot, Trans, Scale);
 	FHitResult* OutSweepHit = nullptr;
+	Check = SelectActor->SetActorTransform(Traj, bSweep, OutSweepHit, Teleport);
 	FString arquivo = "D:\\Vinicius Oliveira\\Git\\Test_Master\\Txt-master\\" + NomeDoArquivo + ".txt";
 	string arquivo2 = string(TCHAR_TO_UTF8(*arquivo));
 	UE_LOG(LogTemp, Warning, TEXT("JSON %s"), *FString(arquivo2.c_str()));
 	ifstream input;
-	Check = SelectActor -> SetActorTransform(Traj, bSweep, OutSweepHit, Teleport);
+	input.open(arquivo2);
+	//for (int i = 1; i < Num; i++) {
+		//for (int j = 0; j < 8; j++)
+			//input >> numero;
+	//}
+	while (input.good()) {
+		//for (int i = 0; i < 20000;i++) //Retardos
+			//numero = numero + 1;
+		//}
+		input >> numero;
+		input >> numero;
+		input >> numero1;
+		input >> numero2;
+		input >> numero3;
+		Rot.Pitch = numero1;
+		Rot.Roll = numero2;
+		Rot.Yaw = numero3;
+		input >> numero1;
+		input >> numero2;
+		input >> numero3;
+		Trans.X = numero1;
+		Trans.Y = numero2;
+		Trans.Z = numero3;
+		Traj = FTransform(Rot, Trans, Scale);
+		Check = SelectActor->SetActorTransform(Traj, bSweep, OutSweepHit, Teleport);
+	}
+	input.close();
+	Trans.X = 100;
+	Trans.Y = 100;
+	Trans.Z = 100;
+	Traj = FTransform(Rot, Trans, Scale);
+	Check = SelectActor->SetActorTransform(Traj, bSweep, OutSweepHit, Teleport);
+	//for (int i = 0; i < 1000000000;i++) {  //Retardos
+		//numero = numero + 1;
+	//}
+	input.open(arquivo2);
+	while (input.good()) {
+		//for (int i = 0; i < 20000;i++) {  //Retardos
+			//numero = numero + 1;
+		//}
+		input >> numero;
+		input >> numero;
+		input >> numero1;
+		input >> numero2;
+		input >> numero3;
+		Rot.Pitch = numero1;
+		Rot.Roll = numero2;
+		Rot.Yaw = numero3;
+		input >> numero1;
+		input >> numero2;
+		input >> numero3;
+		Trans.X = numero1;
+		Trans.Y = numero2;
+		Trans.Z = numero3;
+		Traj = FTransform(Rot, Trans, Scale);
+		Check = SelectActor->SetActorTransform(Traj, bSweep, OutSweepHit, Teleport);
+	}
+	input.close();
+	Trans.X = 180;
+	Trans.Y = 180;
+	Trans.Z = 180;
+	Traj = FTransform(Rot, Trans, Scale);
+	Check = SelectActor->SetActorTransform(Traj, bSweep, OutSweepHit, Teleport);
+	//delete Traj;
+	//Só para lembra como chama a função SetActorTransform
+	//Check = SelectActor -> SetActorTransform(Traj, bSweep, OutSweepHit, Teleport);
 	
 }
 
@@ -106,6 +211,7 @@ void URWTxtFile::LerCoo(FString FileNameF,int Num, FVector&VetorRot, FVector&Vet
 	VetorT.Y = numero2;
 	VetorT.Z = numero3;
 	VetorTran = VetorT;
+	input.close();
 }
 
 void URWTxtFile::LerTexto(FString FileNameE,  FVector&VetorLegalR, FVector&VetorLegalT)

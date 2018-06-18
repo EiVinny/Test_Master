@@ -19,8 +19,15 @@ using namespace std;
 UCLASS()
 class TEST_TXT_API URWTxtFile : public UBlueprintFunctionLibrary
 {
+	public:
+		FVector CarregarLista(FString NomeArquivo, list<float>*Lista, bool&Carregado);
+
 	private:
-		//string nome = "nome";
+		bool Carregado = false;
+		list <float> *Lista = new list <float>();
+		
+		//int numerocoo = 0;
+		
 		//list<float> *coo = new list <float>();
 
 	GENERATED_BODY() public:
@@ -51,6 +58,9 @@ class TEST_TXT_API URWTxtFile : public UBlueprintFunctionLibrary
 			static void NumCoo(FString FileNameG, bool&Carregado, int&num);
 
 		UFUNCTION(BlueprintCallable, Category = "Utilities|Transformation", meta = (DisplayName = "SetTrajetoria", ScriptName = "SetTrajetoria"))
-			static void SetTrajetoria(AActor *SelectActor, FString NomeDoArquivo);
+			static void SetTrajetoria(AActor *SelectActor, FString NomeDoArquivo, int Num);
 		
+		UFUNCTION(BlueprintCallable, Category = "Utilities|Transformation", meta = (DisplayName = "Carregar", ScriptName = "Carregar"))
+			static void Carregar(FString NomeArquivo, bool&Carregado, FVector&Vet);
+
 };
